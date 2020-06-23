@@ -12,6 +12,9 @@
         <meta http-equiv="Pragma" content="no-cache" />
         <meta http-equiv="Expires" content="0" />
         <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        
+        
         <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css">
         <script
           src="https://code.jquery.com/jquery-3.4.1.min.js"
@@ -74,15 +77,7 @@
                 padding: 10px;
             }
             
-            .ablink{
-                display: inline-block;
-                padding: 20px;
-                cursor: pointer;
-            }
             
-            .ablink:hover{
-                background-color: <?php echo $primarycolordarker ?>;
-            }
             
             #footer{
                 text-align: center;
@@ -172,6 +167,92 @@
                 padding-left: 10px;
             }
             
+            .productthumbnail{
+                background-color: white;
+                padding: 10px;
+                cursor: pointer;
+                border: 1px solid white;
+                text-align: left;
+            }
+            
+            .pricetag{
+                padding: 10px; font-size: 20px; color: white; background-color: rgba(0,0,0,.5);
+            }
+            
+            .productthumbnail:hover .pricetag{
+                background-color: <?php echo $primarycolor ?>;
+            }
+            
+            .productthumbnail:hover{
+                border: 1px solid <?php echo $primarycolor ?>;
+                color: <?php echo $primarycolor ?>;
+            }
+            
+            #appbarmenu{
+                position: fixed;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                background-color: black;
+                display: none;
+                min-width: 128px;
+            }
+            .ablink{
+                display: block;
+                padding: 20px;
+                cursor: pointer;
+                text-align: right;
+            }
+            
+            .mobilevisible{
+                display: block;
+            }
+            
+            #mobilebutton{
+                position: fixed;
+                color: white;
+                top: 0;
+                right: 0;
+                padding: 40px;
+            }
+            
+            .thumbnailimage{
+                width: 100%;
+                height: 200px;
+            }
+            
+            @media (min-width: 550px){
+                
+                .thumbnailimage{
+                    width: 200px; height: 200px; 
+                }
+                
+                .productthumbnail{
+                    display: inline-block;
+                    vertical-align: top;
+                }
+                
+                #appbarmenu{
+                    display: inline-block; position: absolute; right: 20px; top: 20%;
+                    background-color: inherit;
+                }
+                .ablink{
+                    display: inline-block;
+                    padding: 20px;
+                    cursor: pointer;
+                }
+                .mobilevisible{
+                    display: none;
+                }
+            }
+            
+            
+            
+            .ablink:hover{
+                background-color: <?php echo $primarycolordarker ?>;
+            }
+            
+            
         </style>
         
         <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
@@ -184,7 +265,9 @@
             <div style="display: inline-block;">
                 <a href="<?php echo $baseurl ?>"><img src="images/weblogo.png" width="200px"></a>
             </div>
-            <div style="display: inline-block; position: absolute; right: 20px; top: 20%;">
+            <div id="mobilebutton" class="mobilevisible" onclick="toggleDrawer()"><i class="fa fa-bars"></i></div>
+            <div id="appbarmenu">
+                <div class="ablink mobilevisible" onclick="toggleDrawer()" style="padding: 40px;"><i class="fa fa-times"></i></div>
                 <a href="<?php echo $baseurl ?>"><div class="ablink">Home</div></a>
                 <?php 
                 if(isset($_SESSION["email"])){
@@ -203,7 +286,7 @@
             </div>
         </div>
         <div id="mainbanner">
-            <h2>Buy and Sell Fresh Home Cooks</h2><h4>Only on Hubby Home Cooks Platform</h4>
+            <h2>Tasty Home Cooks</h2><h4>For Everyone</h4>
         </div>
         <div class="middle">
             
@@ -310,8 +393,13 @@
                     <?php
                     session_destroy();
                 }else if(isset($_GET["dashboard"])){
+                    
                     if(isset($_SESSION["email"])){
+                        
+                        include("thumbnailgenerator.php");
+                        
                         $email = $_SESSION["email"];
+                        $userid = "";
                         $name = "";
                         $phone = "";
                         $address = "";
@@ -323,9 +411,12 @@
                             $name = $row["name"];
                             $phone = $row["phone"];
                             $address = $row["address"];
+                            $userid = $row["userid"];
                         }
                         ?>
-
+                        
+                        
+                        
                         <div style="display: table; width: 100%;">
                             
                             <div style="display: table-cell; width: 200px;">
@@ -337,10 +428,10 @@
                             <div style="display: table-cell; padding-left: 30px;">
                                 <div class="dbp dbp1">
                                     <h3>Add New Product</h3>
-                                    <form method="post" action="<?php echo $baseurl ?>?dashboard">
-                                        <input placeholder="Title">
-                                        <input placeholder="Price">
-                                        <textarea placeholder="Description"></textarea>
+                                    <form method="post" action="<?php echo $baseurl ?>?dashboard" enctype="multipart/form-data">
+                                        <input name="title" placeholder="Title">
+                                        <input name="price" placeholder="Price">
+                                        <textarea name="description" placeholder="Description"></textarea>
                                         <input type="file" name="productimage">
                                         <input name="addnew" type="submit" value="Add" class="submitbutton">
                                     </form>
@@ -358,60 +449,91 @@
                                     <p>Coming soon...</p>
                                 </div>
                                 
+                                <?php
+                        
+                                if(isset($_POST["addnew"])){
+                                    
+                                    ?>
+                                    <div class="dbp dbp0">
+                                    <?php
+                                    
+                                    $productid = substr(str_shuffle(str_repeat("0123456789", 5)), 0, 10);
+                                    $title = mysqli_real_escape_string($connection, $_POST["title"]);
+                                    $price = mysqli_real_escape_string($connection, $_POST["price"]);
+                                    $description = mysqli_real_escape_string($connection, $_POST["description"]);
+                                
+                                    $maxsize = 2097152;
+                                    if(($_FILES['productimage']['size'] >= $maxsize)){
+                                        ?>
+                                        <p>Uploaded image is too big. Try to upload different image.</p>
+                                        <?php
+                                    }else if($_FILES["productimage"]["size"] == 0){
+                                        /*
+                                        ?>
+                                        <p>Uploaded image is file is invalid. Try to upload different image.</p>
+                                        <?php
+                                        */
+                                    }else{
+                                    	if($_FILES['productimage']['error'] > 0) { 
+                                    	    ?>
+                                    	    <p>Error during uploading new picture. Try again later.</p>
+                                    	    <?php
+                                    	}
+                                    	$extsAllowed = array( 'jpg', 'jpeg', 'png' );
+                                    	$uploadedfile = $_FILES["productimage"]["name"];
+                                    	$extension = pathinfo($uploadedfile, PATHINFO_EXTENSION);
+                                    	if (in_array($extension, $extsAllowed) ) { 
+                                    	    $newppic = $productid;
+                                        	$name = "upload/" . $newppic .".". $extension;
+                                        	$result = move_uploaded_file($_FILES['productimage']['tmp_name'], $name);
+                                        	createThumbnail($name, "upload/" . $newppic ."-thumb." . $extension, 256);
+                                        	
+                                        	//success!
+                                        	mysqli_query($connection, "INSERT INTO $tableproducts (userid, productid, title, price, description, ext) VALUES ('$userid', '$productid', '$title' ,'$price', '$description', '$extension')");
+                                        	?>
+                                        	<p>Great! New product has been added.</p>
+                                        	<?php
+                                    	} else {
+                                    	    ?>
+                                    	    <p>Incomplete information. Please try again.</p>
+                                    	    <?php
+                                    	}
+                                    }
+                                
+                                    
+        
+                                    ?>
+                                    </div>
+                                    <?php
+                                }
+                                
+                                ?>
                             </div>
                         </div>
                         
+                        
                         <script>
+                            
+
                             function dbpage(num){
                                 $(".dbp").hide()
                                 $(".dbp" + num).show()
                             }
                             
                             dbpage(1)
+
+                            
+                            <?php
+                            if(isset($_POST["addnew"])){
+                                ?>
+                                dbpage(0)
+                                <?php
+                            }
+                            ?>
+                            
                         </script>
-                        
-                        
                         <?php
                         
-                        if(isset($_POST["addnew"])){
-
-                            $maxsize = 2097152;
-                            if(($_FILES['productimage']['size'] >= $maxsize)){
-                                ?>
-                                <p>Uploaded image is too big. Try to upload different image.</p>
-                                <?php
-                            }else if($_FILES["productimage"]["size"] == 0){
-                                ?>
-                                <p>Uploaded image is file is invalid. Try to upload different image.</p>
-                                <?php
-                            }else{
-                            	if($_FILES['productimage']['error'] > 0) { 
-                            	    ?>
-                            	    <p>Error during uploading new picture. Try again later.</p>
-                            	    <?php
-                            	}
-                            	$extsAllowed = array( 'jpg', 'jpeg', 'png' );
-                            	$uploadedfile = $_FILES["productimage"]["name"];
-                            	$extension = pathinfo($uploadedfile, PATHINFO_EXTENSION);
-                            	if (in_array($extension, $extsAllowed) ) { 
-                            	    $newppic = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 5)), 0, 10);
-                                	$name = "upload/" . $newppic .".". $extension;
-                                	$result = move_uploaded_file($_FILES['productimage']['tmp_name'], $name);
-
-                                	//mysqli_query($connection, "INSERT INTO ciihuygambar (userid, image, ext) VALUES ('$userid', '$newppic', '$extension')");
-                                	
-                                	createThumbnail($name, "upload/" . $newppic ."-thumb." . $extension, 64);
-                                	
-                            	} else {
-                            	    ?>
-                            	    <p>Image file is not valid. Please try another image.</p>
-                            	    <?php
-                            	}
-                            }
-
-                            ?>
-                            <?php
-                        }
                         
                     }else{
                         ?>
@@ -419,8 +541,37 @@
                         <?php
                     }
                 }else{
+                    
                     ?>
-                    <p align="center">Coming soon!</p>
+                    <div style="text-align: center;">
+                    <?php
+                    
+                    $sql = "SELECT * FROM $tableproducts ORDER BY id DESC";
+                    $result = mysqli_query($connection, $sql);
+                    if(mysqli_num_rows($result) > 0){
+                        while($row = mysqli_fetch_assoc($result)){
+                            $uid = $row["userid"];
+                            $sellername = mysqli_fetch_assoc(mysqli_query($connection, "SELECT * FROM $tableusers WHERE userid = '$uid'"))["name"];
+                            
+                            ?>
+                            <div class="productthumbnail">
+                                <div class="thumbnailimage" style="margin-bottom: 10px; background: url(upload/<?php echo $row["productid"] ?>-thumb.<?php echo $row["ext"] ?>) no-repeat center center; background-size: cover; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover;">
+                                    <div style="display: inline-block;">
+                                        <div class="pricetag"><i class="fa fa-tag"></i> $<?php echo $row["price"] ?></div>
+                                    </div>
+                                </div>
+                                <h2 style="margin: 0px;"><i class="fa fa-cutlery"></i> <?php echo $row["title"] ?></h2>
+                                <h3 style="margin: 0px;"><i class="fa fa-user"></i> <?php echo $sellername ?></h3>
+                            </div>
+                            <?php
+                        }
+                    }else{
+                        ?>
+                        <p align="center">Coming soon!</p>
+                        <?php
+                    }
+                    ?>
+                    </div>
                     <?php
                 }
             ?>
@@ -449,6 +600,10 @@
         </div>
         
         <script>
+            function toggleDrawer(){
+                $("#appbarmenu").toggle()
+            }
+            
             $(document).ready(function(){
                 /*
                 $('.homeslider').slick({

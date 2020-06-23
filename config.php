@@ -19,6 +19,7 @@ $connection->set_charset("utf8");
 
 //database tables
 $tableusers = "hubbyusers";
+$tableproducts = "hubbyproducts";
 
 //creating database table for user registration
 mysqli_query($connection, "CREATE TABLE IF NOT EXISTS $tableusers (
@@ -31,4 +32,17 @@ password VARCHAR(30) NOT NULL,
 phone VARCHAR(30) NOT NULL,
 address VARCHAR(150) NOT NULL
 )");
+
+//creating database table for user products
+mysqli_query($connection, "CREATE TABLE IF NOT EXISTS $tableproducts (
+id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+userid VARCHAR(30) NOT NULL,
+productid VARCHAR(30) NOT NULL,
+title VARCHAR(50) NOT NULL,
+price INT(6),
+description VARCHAR(500) NOT NULL,
+ext VARCHAR(10) NOT NULL
+)");
+
+
 ?>
