@@ -47,6 +47,11 @@
                 margin: 0px;
                 margin-bottom: 10px;
             }
+            
+            p{
+                font-size: 18px;
+                margin-bottom: 15px;
+            }
         
             body{
                 padding: 0px;
@@ -111,6 +116,11 @@
                 color: inherit;
             }
             
+            .textlink:hover{
+                color: <?php echo $primarycolor ?>;
+                text-decoration: underline;
+            }
+            
             input, textarea{
                 box-sizing: border-box;
                 width: 100%;
@@ -135,6 +145,25 @@
                 background-color: <?php echo $primarycolordarker ?>;
             }
             
+            .chatbutton{
+                display: inline-block;
+                border-radius: 20px;
+                padding: 20px;
+                color: white;
+                font-size: 20px;
+                text-align: center;
+                /*background-color: <?php echo $primarycolor ?>;*/
+                border: 2px solid <?php echo $primarycolor ?>;
+                cursor: pointer;
+                font-weight: bold;
+                color: <?php echo $primarycolor ?>;
+            }
+            
+            .chatbutton:hover{
+                background-color: <?php echo $primarycolordarker ?>;
+                color: white;
+            }
+            
             #mainbanner{
                 background: url(images/mainbanner.jpg) no-repeat center center; 
                 -webkit-background-size: cover;
@@ -151,21 +180,10 @@
             
             .middlebox{
                 margin: 0 auto;
-                max-width: 512px;
+                max-width: 800px;
             }
             
-            .dashboardleftbutton{
-                padding-top: 10px;
-                padding-bottom: 10px;
-                border-bottom: 1px solid white;
-                cursor: pointer;
-            }
-            .dashboardleftbutton:hover{
-                color: <?php echo $primarycolor ?>;
-                font-weight: bold;
-                background-color: white;
-                padding-left: 10px;
-            }
+            
             
             .productthumbnail{
                 background-color: white;
@@ -173,6 +191,10 @@
                 cursor: pointer;
                 border: 1px solid white;
                 text-align: left;
+                margin: 10px;
+                -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.15);
+                -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.15);
+                box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.15);
             }
             
             .pricetag{
@@ -185,7 +207,6 @@
             
             .productthumbnail:hover{
                 border: 1px solid <?php echo $primarycolor ?>;
-                color: <?php echo $primarycolor ?>;
             }
             
             #appbarmenu{
@@ -193,10 +214,11 @@
                 top: 0;
                 right: 0;
                 bottom: 0;
-                background-color: black;
+                background-color: rgba(0,0,0,.8);
                 display: none;
                 min-width: 128px;
             }
+            
             .ablink{
                 display: block;
                 padding: 20px;
@@ -221,10 +243,51 @@
                 height: 200px;
             }
             
-            @media (min-width: 550px){
+            .shorttext{
+            	width: 100%;
+            	display: inline-block;
+            	text-overflow: ellipsis;
+            	white-space: nowrap;
+            	overflow: hidden;
+            }
+            
+            .singleproductholder{
+                display: block;
+            }
+            
+            .singleproductrow{
+                display: block;
+            }
+            
+            .dashboardcontentholder{
+                display: block;
+            }
+            
+            .dashboardcell{
+                display: block; 
+                margin-bottom: 20px;
+            }
+            
+            .dashboardleftbutton{
+                border-bottom: 1px solid white;
+                cursor: pointer;
+                display: inline-block;
+                padding: 10px;
+            }
+            .dashboardleftbutton:hover{
+                color: <?php echo $primarycolor ?>;
+                font-weight: bold;
+                background-color: white;
+            }
+            
+            @media (min-width: 720px){
                 
                 .thumbnailimage{
                     width: 200px; height: 200px; 
+                }
+                
+                .shorttext{
+                    width: 200px;
                 }
                 
                 .productthumbnail{
@@ -244,6 +307,44 @@
                 .mobilevisible{
                     display: none;
                 }
+                
+                .singleproductholder{
+                    display: table;
+                    width: 100%;
+                }
+                
+                .singleproductrow{
+                    display: table-cell;
+                    vertical-align: top;
+                }
+                
+                .sprleft{
+                    width: 300px;
+                }
+                
+                .sprright{
+                    padding-left: 20px;
+                }
+                
+                .dashboardcontentholder{
+                    display: table; width: 100%;
+                }
+                
+                .dashboardcell{
+                    display: table-cell; 
+                }
+                
+                .dbcleft{
+                    width: 200px;
+                }
+                
+                .dbcright{
+                    padding-left: 30px;
+                }
+                
+                .dashboardleftbutton{
+                    display: block;
+                }
             }
             
             
@@ -252,7 +353,42 @@
                 background-color: <?php echo $primarycolordarker ?>;
             }
             
+            .bigproductimage{
+                margin-bottom: 10px; 
+                margin-top: 10px;
+                padding: 10px; 
+                background-color: white;
+                -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.15);
+                -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.15);
+                box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.15);
+            }
             
+            #searchbox{
+                margin-bottom: 10px; 
+                margin-top: 10px;
+                padding: 25px; background-color: white;
+                -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.15);
+                -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.15);
+                box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.15);
+                
+                font-size: 30px;
+                color: <?php echo $primarycolor ?>;
+                
+                display: table;
+                width: 100%;
+                border-radius: 30px;
+                box-sizing: border-box;
+            }
+            
+            .sbitem{
+                display: table-cell;
+                vertical-align: middle;
+            }
+            
+            
+            label{
+                font-weight: bold;
+            }
         </style>
         
         <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
@@ -282,7 +418,9 @@
                     <?php
                 }
                 ?>
-                <div class="ablink"><i class="fa fa-search"></i></div>
+                <a href="<?php echo $baseurl ?>?about"><div class="ablink">About</div></a>
+                <a href="<?php echo $baseurl ?>?search"><div class="ablink"><i class="fa fa-search"></i></div></a>
+                
             </div>
         </div>
         <div id="mainbanner">
@@ -320,7 +458,9 @@
                             ?>
                             <h2>Login</h2>
                             <form method="post" action="<?php echo $baseurl ?>?login">
+                                <label>Email</label>
                                 <input name="email" type="email" placeholder="Email">
+                                <label>Password</label>
                                 <input name="password" type="password" placeholder="Password">
                                 <input name="login" type="submit" placeholder="Login" class="submitbutton"> 
                             </form>
@@ -373,10 +513,16 @@
                             ?>
                             <h2>Register</h2>
                             <form method="post" action="<?php echo $baseurl ?>?register">
+                                <label>Email</label>
                                 <input name="email" type="email" placeholder="Email">
+                                <label>Password</label>
                                 <input name="password" type="password" placeholder="Password">
+                                <label>Name/Nickname</label>
                                 <input name="name" type="text" placeholder="Your name or nickname">
+                                <label>Phone Number</label>
+                                <p>*Include your country code before your phone number like this: 6590611234</p>
                                 <input name="phone" type="number" placeholder="Phone number">
+                                <label>Address</label>
                                 <input name="address" type="text" placeholder="Address">
                                 <input name="register" type="submit" value="Register" class="submitbutton">
                             </form>
@@ -394,152 +540,393 @@
                     session_destroy();
                 }else if(isset($_GET["dashboard"])){
                     
-                    if(isset($_SESSION["email"])){
+                    ?>
+                    <div class="middlebox">
+                        <?php
                         
-                        include("thumbnailgenerator.php");
-                        
-                        $email = $_SESSION["email"];
-                        $userid = "";
-                        $name = "";
-                        $phone = "";
-                        $address = "";
-                        
-                        $sql = "SELECT * FROM $tableusers WHERE email = '$email'";
-                        $result = mysqli_query($connection, $sql);
-                        
-                        while($row = mysqli_fetch_assoc($result)){
-                            $name = $row["name"];
-                            $phone = $row["phone"];
-                            $address = $row["address"];
-                            $userid = $row["userid"];
-                        }
-                        ?>
-                        
-                        
-                        
-                        <div style="display: table; width: 100%;">
+                        if(isset($_SESSION["email"])){
                             
-                            <div style="display: table-cell; width: 200px;">
-                                <div class="dashboardleftbutton" onclick="dbpage(1)"><i class="fa fa-plus" style="width: 20px;"></i> Add New Product</div>
-                                <div class="dashboardleftbutton" onclick="dbpage(2)"><i class="fa fa-cutlery" style="width: 20px;"></i> Your Products</div>
-                                <div class="dashboardleftbutton" onclick="dbpage(3)"><i class="fa fa-user" style="width: 20px;"></i> Profile</div>
-                                <div class="dashboardleftbutton" onclick="dbpage(4)"><i class="fa fa-cogs" style="width: 20px;"></i> Settings</div>
-                            </div>
-                            <div style="display: table-cell; padding-left: 30px;">
-                                <div class="dbp dbp1">
-                                    <h3>Add New Product</h3>
-                                    <form method="post" action="<?php echo $baseurl ?>?dashboard" enctype="multipart/form-data">
-                                        <input name="title" placeholder="Title">
-                                        <input name="price" placeholder="Price">
-                                        <textarea name="description" placeholder="Description"></textarea>
-                                        <input type="file" name="productimage">
-                                        <input name="addnew" type="submit" value="Add" class="submitbutton">
-                                    </form>
-                                </div>
-                                <div class="dbp dbp2">
-                                    <h3>Your Products</h3>
-                                    <p>Nothing uploaded...</p>
-                                </div>
-                                <div class="dbp dbp3">
-                                    <h3>Profile</h3>
-                                    <p>Coming soon...</p>
-                                </div>
-                                <div class="dbp dbp4">
-                                    <h3>Settings</h3>
-                                    <p>Coming soon...</p>
-                                </div>
+                            include("thumbnailgenerator.php");
+                            
+                            $email = $_SESSION["email"];
+                            $userid = "";
+                            $name = "";
+                            $phone = "";
+                            $address = "";
+                            
+                            $sql = "SELECT * FROM $tableusers WHERE email = '$email'";
+                            $result = mysqli_query($connection, $sql);
+                            
+                            while($row = mysqli_fetch_assoc($result)){
+                                $name = $row["name"];
+                                $phone = $row["phone"];
+                                $address = $row["address"];
+                                $userid = $row["userid"];
+                            }
+                            ?>
+                            
+                            
+                            
+                            <div class="dashboardcontentholder">
                                 
-                                <?php
-                        
-                                if(isset($_POST["addnew"])){
-                                    
-                                    ?>
-                                    <div class="dbp dbp0">
-                                    <?php
-                                    
-                                    $productid = substr(str_shuffle(str_repeat("0123456789", 5)), 0, 10);
-                                    $title = mysqli_real_escape_string($connection, $_POST["title"]);
-                                    $price = mysqli_real_escape_string($connection, $_POST["price"]);
-                                    $description = mysqli_real_escape_string($connection, $_POST["description"]);
-                                
-                                    $maxsize = 2097152;
-                                    if(($_FILES['productimage']['size'] >= $maxsize)){
-                                        ?>
-                                        <p>Uploaded image is too big. Try to upload different image.</p>
-                                        <?php
-                                    }else if($_FILES["productimage"]["size"] == 0){
-                                        /*
-                                        ?>
-                                        <p>Uploaded image is file is invalid. Try to upload different image.</p>
-                                        <?php
-                                        */
-                                    }else{
-                                    	if($_FILES['productimage']['error'] > 0) { 
-                                    	    ?>
-                                    	    <p>Error during uploading new picture. Try again later.</p>
-                                    	    <?php
-                                    	}
-                                    	$extsAllowed = array( 'jpg', 'jpeg', 'png' );
-                                    	$uploadedfile = $_FILES["productimage"]["name"];
-                                    	$extension = pathinfo($uploadedfile, PATHINFO_EXTENSION);
-                                    	if (in_array($extension, $extsAllowed) ) { 
-                                    	    $newppic = $productid;
-                                        	$name = "upload/" . $newppic .".". $extension;
-                                        	$result = move_uploaded_file($_FILES['productimage']['tmp_name'], $name);
-                                        	createThumbnail($name, "upload/" . $newppic ."-thumb." . $extension, 256);
-                                        	
-                                        	//success!
-                                        	mysqli_query($connection, "INSERT INTO $tableproducts (userid, productid, title, price, description, ext) VALUES ('$userid', '$productid', '$title' ,'$price', '$description', '$extension')");
-                                        	?>
-                                        	<p>Great! New product has been added.</p>
-                                        	<?php
-                                    	} else {
-                                    	    ?>
-                                    	    <p>Incomplete information. Please try again.</p>
-                                    	    <?php
-                                    	}
-                                    }
-                                
-                                    
-        
-                                    ?>
+                                <div class="dashboardcell dbcleft">
+                                    <div class="dashboardleftbutton" onclick="dbpage(1)"><i class="fa fa-plus" style="width: 20px;"></i> Add New Product</div>
+                                    <div class="dashboardleftbutton" onclick="dbpage(2)"><i class="fa fa-cutlery" style="width: 20px;"></i> Your Products</div>
+                                    <div class="dashboardleftbutton" onclick="dbpage(3)"><i class="fa fa-user" style="width: 20px;"></i> Profile</div>
+                                </div>
+                                <div class="dashboardcell dbcright">
+                                    <div class="dbp dbp1">
+                                        <h3>Add New Product</h3>
+                                        <form method="post" action="<?php echo $baseurl ?>?dashboard" enctype="multipart/form-data">
+                                            <input name="title" placeholder="Title">
+                                            <input name="price" placeholder="Price">
+                                            <textarea name="description" placeholder="Description"></textarea>
+                                            <p>Choose your product photo:</p>
+                                            <input type="file" name="productimage" accept="image/*">
+                                            <input name="addnew" type="submit" value="Add" class="submitbutton">
+                                        </form>
                                     </div>
+                                    <div class="dbp dbp2">
+                                        <h3>Your Products</h3>
+                                        <?php
+                                        $sql = "SELECT * FROM $tableproducts WHERE userid = '$userid' ORDER BY id DESC";
+                                        $result = mysqli_query($connection, $sql);
+                                        if(mysqli_num_rows($result) > 0){
+                                            ?>
+                                            <p>Click to edit one of your published products.</p>
+                                            <?php
+                                            while($productrow = mysqli_fetch_assoc($result)){
+                                                
+                                                ?>
+                                                <a href="<?php echo $baseurl ?>?dashboard&edit=<?php echo $productrow["productid"] ?>">
+                                                    <div class="productthumbnail">
+                                                        <div class="thumbnailimage" style="margin-bottom: 10px; background: url(upload/<?php echo $productrow["productid"] ?>-thumb.<?php echo $productrow["ext"] ?>) no-repeat center center; background-size: cover; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover;">
+                                                            <div style="display: inline-block;">
+                                                                <div class="pricetag"><i class="fa fa-tag"></i> $<?php echo $productrow["price"] ?></div>
+                                                            </div>
+                                                        </div>
+                                                        <h2 style="margin: 0px;"><i class="fa fa-cutlery"></i> <?php echo $productrow["title"] ?></h2>
+                                                        <h5 style="margin: 0px;"><i class="fa fa-user"></i> <?php echo $name ?></h5>
+                                                        <div class="shorttext">
+                                                            <?php echo $productrow["description"] ?>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                <?php
+                                                
+                                            }
+                                        }else{
+                                            ?>
+                                            <p align="center">You don't have any product yet.</p>
+                                            <?php
+                                        }
+                                        ?>
+                                    </div>
+                                    
+                                    <div class="dbp dbp3">
+                                        <h3>Profile</h3>
+                                        <form action="<?php echo $baseurl ?>?dashboard" method="post">
+                                            <label>Name/Nickname</label>
+                                            <input name="name" type="text" placeholder="Your name or nickname" value="<?php echo $name ?>">
+                                            <label>Phone Number</label>
+                                            <p>*Include your country code before your phone number like this: 6590611234</p>
+                                            <input name="phone" type="number" placeholder="Phone number" value="<?php echo $phone ?>">
+                                            <label>Address</label>
+                                            <input name="address" type="text" placeholder="Address" value="<?php echo $address ?>">
+                                            <input name="updateprofile" type="submit" value="Update" class="submitbutton">
+                                        </form>
+                                    </div>
+                                    <div class="dbp dbp4">
+                                        <h3>Settings</h3>
+                                        <p>Coming soon...</p>
+                                    </div>
+                                    
                                     <?php
+                            
+                                    if(isset($_POST["addnew"])){
+                                        
+                                        ?>
+                                        <div class="dbp dbp0">
+                                        <?php
+                                        
+                                        $productid = substr(str_shuffle(str_repeat("0123456789", 5)), 0, 10);
+                                        $title = mysqli_real_escape_string($connection, $_POST["title"]);
+                                        $price = mysqli_real_escape_string($connection, $_POST["price"]);
+                                        $description = mysqli_real_escape_string($connection, $_POST["description"]);
+                                    
+                                        $maxsize = 2097152;
+                                        if(($_FILES['productimage']['size'] >= $maxsize)){
+                                            ?>
+                                            <p>Uploaded image is too big. Try to upload different image.</p>
+                                            <?php
+                                        }else if($_FILES["productimage"]["size"] == 0){
+                                            /*
+                                            ?>
+                                            <p>Uploaded image is file is invalid. Try to upload different image.</p>
+                                            <?php
+                                            */
+                                        }else{
+                                        	if($_FILES['productimage']['error'] > 0) { 
+                                        	    ?>
+                                        	    <p>Error during uploading new picture. Try again later.</p>
+                                        	    <?php
+                                        	}
+                                        	$extsAllowed = array( 'jpg', 'jpeg', 'png' );
+                                        	$uploadedfile = $_FILES["productimage"]["name"];
+                                        	$extension = pathinfo($uploadedfile, PATHINFO_EXTENSION);
+                                        	if (in_array($extension, $extsAllowed) ) { 
+                                        	    $newppic = $productid;
+                                            	$name = "upload/" . $newppic .".". $extension;
+                                            	$result = move_uploaded_file($_FILES['productimage']['tmp_name'], $name);
+                                            	createThumbnail($name, "upload/" . $newppic ."-thumb." . $extension, 256);
+                                            	
+                                            	//success!
+                                            	mysqli_query($connection, "INSERT INTO $tableproducts (userid, productid, title, price, description, ext) VALUES ('$userid', '$productid', '$title' ,'$price', '$description', '$extension')");
+                                            	?>
+                                            	<p>Great! New product has been added.</p>
+                                            	<?php
+                                        	} else {
+                                        	    ?>
+                                        	    <p>Incomplete information. Please try again.</p>
+                                        	    <?php
+                                        	}
+                                        }
+                                    
+                                        
+            
+                                        ?>
+                                        </div>
+                                        <?php
+                                    }
+                                    
+                                    if(isset($_POST["updateprofile"])){
+                                        ?>
+                                        <div class="dbp dbp0">
+                                            <p>Your profile has been updated.</p>
+                                        </div>
+                                        <?php
+                                    }
+                                    
+                                    ?>
+                                </div>
+                            </div>
+                            
+                            
+                            <script>
+                                
+    
+                                function dbpage(num){
+                                    $(".dbp").hide()
+                                    $(".dbp" + num).show()
                                 }
                                 
+                                dbpage(1)
+    
+                                
+                                <?php
+                                if(isset($_POST["addnew"]) || isset($_POST["updateprofile"])){
+                                    ?>
+                                    dbpage(0)
+                                    <?php
+                                }
                                 ?>
+                                
+                            </script>
+                            <?php
+                            
+                            
+                        }else{
+                            
+                            ?>
+                            <p align="center">You must login first to access this page.</p>
+                            <?php
+                        }
+                        
+                        ?>
+                    </div>
+                    <?php
+                }else if(isset($_GET["product"])){
+                    
+                    $productid = mysqli_real_escape_string($connection, $_GET["product"]);
+                    $sql = "SELECT * FROM $tableproducts WHERE productid = '$productid'";
+                    $result = mysqli_query($connection, $sql);
+                    
+                    if(mysqli_num_rows($result) > 0){
+                        $row = mysqli_fetch_assoc($result);
+                        $sellerid = $row["userid"];
+                        $sellerinfo = mysqli_fetch_assoc(mysqli_query($connection, "SELECT * FROM $tableusers WHERE userid = '$sellerid'"));
+                        
+                        ?>
+                        <div class="middlebox">
+                            <div class="singleproductholder">
+                                <div class="singleproductrow sprleft">
+                                    <div class="bigproductimage">
+                                        <img src="upload/<?php echo $row["productid"] ?>.<?php echo $row["ext"] ?>" width="100%">
+                                    </div>
+                                </div>
+                                <div class="singleproductrow">
+                                    <div class="sprright">
+                                        <h1><?php echo $row["title"] ?> <span style="font-size: 14px;">Just for</span> <span style="color: <?php echo $primarycolor ?>"><i class="fa fa-tag"></i>$<?php echo $row["price"] ?></span></h1>
+                                        <h4><span style="font-size: 12px;">Added by</span> <a class="textlink" href="<?php echo $baseurl ?>?user=<?php echo $sellerid ?>"><i class="fa fa-user"></i> <?php echo $sellerinfo["name"] ?></a> <span style="font-size: 12px;">from</span> <i class="fa fa-map-marker"></i> <?php echo $sellerinfo["address"] ?></h4>
+                                        <p><?php echo $row["description"] ?></p>
+                                        <a href="https://wa.me/<?php echo $sellerinfo["phone"] ?>?text=Hi, I came across this link <?php echo $baseurl . "?product=" . "$productid" ?> and I want to ask some questions..."><div class="chatbutton"><i class="fa fa-whatsapp"></i> Chat Now</div></a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <?php
                         
+                    }else{
+                        ?>
+                        <p align="center">There is nothing here, sir.</p>
+                        <?php
+                    }
+                }else if(isset($_GET["user"])){
+                    
+                    $userid = mysqli_real_escape_string($connection, $_GET["user"]);
+                    $sql = "SELECT * FROM $tableusers WHERE userid = '$userid'";
+                    $result = mysqli_query($connection, $sql);
+                    
+                    if(mysqli_num_rows($result) > 0){
+                        $row = mysqli_fetch_assoc($result);
+                        ?>
                         
-                        <script>
+                        <div class="middlebox">
                             
-
-                            function dbpage(num){
-                                $(".dbp").hide()
-                                $(".dbp" + num).show()
-                            }
-                            
-                            dbpage(1)
-
+                            <h1>Products added by <?php echo $row["name"] ?></h1>
+                            <p><i class="fa fa-map-marker"></i> <?php echo $row["address"] ?></p>
                             
                             <?php
-                            if(isset($_POST["addnew"])){
+                            $sql = "SELECT * FROM $tableproducts WHERE userid = '$userid' ORDER BY id DESC";
+                            $result = mysqli_query($connection, $sql);
+                            if(mysqli_num_rows($result) > 0){
+                                while($productrow = mysqli_fetch_assoc($result)){
+                                    
+                                    ?>
+                                    <a href="<?php echo $baseurl ?>?product=<?php echo $productrow["productid"] ?>">
+                                        <div class="productthumbnail">
+                                            <div class="thumbnailimage" style="margin-bottom: 10px; background: url(upload/<?php echo $productrow["productid"] ?>-thumb.<?php echo $productrow["ext"] ?>) no-repeat center center; background-size: cover; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover;">
+                                                <div style="display: inline-block;">
+                                                    <div class="pricetag"><i class="fa fa-tag"></i> $<?php echo $productrow["price"] ?></div>
+                                                </div>
+                                            </div>
+                                            <h2 style="margin: 0px;"><i class="fa fa-cutlery"></i> <?php echo $productrow["title"] ?></h2>
+                                            <h5 style="margin: 0px;"><i class="fa fa-user"></i> <?php echo $row["name"] ?></h5>
+                                            <div class="shorttext">
+                                                <?php echo $productrow["description"] ?>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <?php
+                                }
+                            }else{
                                 ?>
-                                dbpage(0)
+                                <p align="center">Coming soon!</p>
                                 <?php
                             }
                             ?>
                             
-                        </script>
+                        </div>
+                        
                         <?php
-                        
-                        
                     }else{
                         ?>
-                        <p align="center">You must login first to access this page.</p>
+                        <p align="center">There is nothing here, sir.</p>
                         <?php
                     }
+                    
+                }else if(isset($_GET["about"])){
+                    
+                    ?>
+                    <div class="middlebox">
+                        <img src="images/woman.jpg" width="100%">
+                        <h1>About</h1>
+                        <p>Statistics from e-commerce platform JD show that from January to March, sales of baking staples such as cream, yeast, butter and flour rose by 321 percent year-on-year, and those for utensils, including egg beaters, spatulas, greaseproof paper and flour sifters, grew by 360 percent.</p>
+                        <p>Baking is taking the internet by storm, as people look for ways to occupy themselves and reduce stress.</p>
+                        <h3>Features</h3>
+                        
+                        <ul>
+                            <li>Mobile Friendly</li>
+                            <li>Look amazing on every screen with a mobile-friendly version of your website.</li>
+                            <li>Drag and Drop</li>
+                            <li>Change, customize or add anything to your site.</li>
+                            <li>Host your own business.  Free with any of our plans! Just hit publish, and get your website and files online instantly.</li>
+                            <li>Start selling from your online store! Use PayPal or other payment options to accept major credit cards. 100% commission free from us.</li>
+                        </ul>
+                        
+                        
+                        <p>Our direction will be highlight that the lockdown has caused many to loose jobs and the way business is conducted is changed forever.</p>
+                    </div>
+                    <?php
+                    
+                }else if(isset($_GET["search"])){
+                    ?>
+                    <div class="middlebox">
+                        <form method="post" action="<?php echo $baseurl ?>?search">
+                            
+                            <div id="searchbox">
+                                <div class="sbitem" style="width: 50px;">
+                                    <i class="fa fa-search"></i>
+                                </div>
+                                <div class="sbitem">
+                                    <input name="search" placeholder="What are you looking for?" style="outline: none; border: none; background-color: inherit; margin: 0px;">
+                                </div>
+                                <div class="sbitem" style="width: 100px;">
+                                    <input type="submit" value="Find it!" style="background-color: <?php echo $primarycolor ?>; margin: 0px; color: white; border-radius: 20px; outline: none;">
+                                </div>
+                            </div>
+                            
+                            
+                            <?php
+                            if(isset($_POST["search"])){
+                                
+                                $query = mysqli_real_escape_string($connection, $_POST["search"]);
+                                $sql = "SELECT * FROM $tableproducts WHERE title LIKE '%$query%' OR description LIKE '%$query%'";
+                                $result = mysqli_query($connection, $sql);
+                                if($query != ""){
+                                    if(mysqli_num_rows($result) > 0){
+                                        ?>
+                                        <h3 align="center" style="margin: 30px;">Search results:</h3>
+                                        <?php
+                                        $row = mysqli_fetch_assoc($result);
+                                        $uid = $row["userid"];
+                                        
+                                        $sellername = mysqli_fetch_assoc(mysqli_query($connection, "SELECT * FROM $tableusers WHERE userid = '$uid'"))["name"];
+                                        
+                                        ?>
+                                        <a href="<?php echo $baseurl ?>?product=<?php echo $row["productid"] ?>">
+                                            <div class="productthumbnail">
+                                                <div class="thumbnailimage" style="margin-bottom: 10px; background: url(upload/<?php echo $row["productid"] ?>-thumb.<?php echo $row["ext"] ?>) no-repeat center center; background-size: cover; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover;">
+                                                    <div style="display: inline-block;">
+                                                        <div class="pricetag"><i class="fa fa-tag"></i> $<?php echo $row["price"] ?></div>
+                                                    </div>
+                                                </div>
+                                                <h2 style="margin: 0px;"><i class="fa fa-cutlery"></i> <?php echo $row["title"] ?></h2>
+                                                <h5 style="margin: 0px;"><i class="fa fa-user"></i> <?php echo $sellername ?></h5>
+                                                <div class="shorttext">
+                                                    <?php echo $row["description"] ?>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <?php
+                                    }else{
+                                        ?>
+                                        <h3 align="center" style="margin: 30px;">Search results:</h3>
+                                        <p align="center">Nothing found.</p>
+                                        <?php
+                                    }
+                                }else{
+                                    ?>
+                                    <h3 align="center" style="margin: 30px;">Search results:</h3>
+                                    <p align="center">Nothing found.</p>
+                                    <?php
+                                }
+                            }
+                            ?>
+                            
+                        </form>
+                    </div>
+                    <?php
                 }else{
                     
                     ?>
@@ -551,18 +938,25 @@
                     if(mysqli_num_rows($result) > 0){
                         while($row = mysqli_fetch_assoc($result)){
                             $uid = $row["userid"];
+                            
+                            
                             $sellername = mysqli_fetch_assoc(mysqli_query($connection, "SELECT * FROM $tableusers WHERE userid = '$uid'"))["name"];
                             
                             ?>
-                            <div class="productthumbnail">
-                                <div class="thumbnailimage" style="margin-bottom: 10px; background: url(upload/<?php echo $row["productid"] ?>-thumb.<?php echo $row["ext"] ?>) no-repeat center center; background-size: cover; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover;">
-                                    <div style="display: inline-block;">
-                                        <div class="pricetag"><i class="fa fa-tag"></i> $<?php echo $row["price"] ?></div>
+                            <a href="<?php echo $baseurl ?>?product=<?php echo $row["productid"] ?>">
+                                <div class="productthumbnail">
+                                    <div class="thumbnailimage" style="margin-bottom: 10px; background: url(upload/<?php echo $row["productid"] ?>-thumb.<?php echo $row["ext"] ?>) no-repeat center center; background-size: cover; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover;">
+                                        <div style="display: inline-block;">
+                                            <div class="pricetag"><i class="fa fa-tag"></i> $<?php echo $row["price"] ?></div>
+                                        </div>
+                                    </div>
+                                    <h2 style="margin: 0px;"><i class="fa fa-cutlery"></i> <?php echo $row["title"] ?></h2>
+                                    <h5 style="margin: 0px;"><i class="fa fa-user"></i> <?php echo $sellername ?></h5>
+                                    <div class="shorttext">
+                                        <?php echo $row["description"] ?>
                                     </div>
                                 </div>
-                                <h2 style="margin: 0px;"><i class="fa fa-cutlery"></i> <?php echo $row["title"] ?></h2>
-                                <h3 style="margin: 0px;"><i class="fa fa-user"></i> <?php echo $sellername ?></h3>
-                            </div>
+                            </a>
                             <?php
                         }
                     }else{
@@ -578,6 +972,7 @@
             
         </div>
         <div id="footer">
+            
             <div>
                 <div class="footeritem"><a href="<?php echo $baseurl ?>">Home</a></div>
                 <?php 
@@ -593,13 +988,16 @@
                     <?php
                 }
                 ?>
+                <div class="footeritem"><a href="<?php echo $baseurl ?>?about">About</a></div>
             </div>
+            
             <div style="margin: 30px;">
                 <p style="font-size: 10px;">Copyright 2020. All rights reserved.</p>
             </div>
         </div>
         
         <script>
+        
             function toggleDrawer(){
                 $("#appbarmenu").toggle()
             }
@@ -615,6 +1013,7 @@
                 });
                 */
             })
+            
         </script>
     </body>
 </html>
