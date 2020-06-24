@@ -14,6 +14,7 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         
+        <scriptsrc="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         
         <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css">
         <script
@@ -116,8 +117,10 @@
                 color: inherit;
             }
             
-            .textlink:hover{
+            .textlink{
                 color: <?php echo $primarycolor ?>;
+            }
+            .textlink:hover{
                 text-decoration: underline;
             }
             
@@ -147,7 +150,7 @@
             
             .chatbutton{
                 display: inline-block;
-                border-radius: 20px;
+                border-radius: 10px;
                 padding: 20px;
                 color: white;
                 font-size: 20px;
@@ -293,6 +296,7 @@
                 .productthumbnail{
                     display: inline-block;
                     vertical-align: top;
+                    width: 200px;
                 }
                 
                 #appbarmenu{
@@ -335,7 +339,7 @@
                 }
                 
                 .dbcleft{
-                    width: 200px;
+                    width: 128px;
                 }
                 
                 .dbcright{
@@ -536,6 +540,11 @@
                 }else if(isset($_GET["logout"])){
                     ?>
                     <p align="center">Good bye!</p>
+                    <script>
+                        setTimeout(function(){
+                            location.href = "<?php echo $baseurl ?>"
+                        }, 1000)
+                    </script>
                     <?php
                     session_destroy();
                 }else if(isset($_GET["dashboard"])){
@@ -570,8 +579,8 @@
                             <div class="dashboardcontentholder">
                                 
                                 <div class="dashboardcell dbcleft">
-                                    <div class="dashboardleftbutton" onclick="dbpage(1)"><i class="fa fa-plus" style="width: 20px;"></i> Add New Product</div>
-                                    <div class="dashboardleftbutton" onclick="dbpage(2)"><i class="fa fa-cutlery" style="width: 20px;"></i> Your Products</div>
+                                    <div class="dashboardleftbutton" onclick="dbpage(1)"><i class="fa fa-plus" style="width: 20px;"></i> New</div>
+                                    <div class="dashboardleftbutton" onclick="dbpage(2)"><i class="fa fa-cutlery" style="width: 20px;"></i> Products</div>
                                     <div class="dashboardleftbutton" onclick="dbpage(3)"><i class="fa fa-user" style="width: 20px;"></i> Profile</div>
                                 </div>
                                 <div class="dashboardcell dbcright">
@@ -579,11 +588,11 @@
                                         <h3>Add New Product</h3>
                                         <form method="post" action="<?php echo $baseurl ?>?dashboard" enctype="multipart/form-data">
                                             <input name="title" placeholder="Title">
-                                            <input name="price" placeholder="Price">
+                                            <input name="price" type="number" placeholder="Price">
                                             <textarea name="description" placeholder="Description"></textarea>
                                             <p>Choose your product photo:</p>
                                             <input type="file" name="productimage" accept="image/*">
-                                            <input name="addnew" type="submit" value="Add" class="submitbutton">
+                                            <input name="addnew" type="submit" value="Sell" class="submitbutton">
                                         </form>
                                     </div>
                                     <div class="dbp dbp2">
@@ -605,7 +614,9 @@
                                                                 <div class="pricetag"><i class="fa fa-tag"></i> $<?php echo $productrow["price"] ?></div>
                                                             </div>
                                                         </div>
-                                                        <h2 style="margin: 0px;"><i class="fa fa-cutlery"></i> <?php echo $productrow["title"] ?></h2>
+                                                        
+                                                        <h3 style="margin: 0px;"><?php echo $productrow["title"] ?></h3>
+                                                        
                                                         <h5 style="margin: 0px;"><i class="fa fa-user"></i> <?php echo $name ?></h5>
                                                         <div class="shorttext">
                                                             <?php echo $productrow["description"] ?>
@@ -684,6 +695,11 @@
                                             	mysqli_query($connection, "INSERT INTO $tableproducts (userid, productid, title, price, description, ext) VALUES ('$userid', '$productid', '$title' ,'$price', '$description', '$extension')");
                                             	?>
                                             	<p>Great! New product has been added.</p>
+                                            	<script>
+                                                setTimeout(function(){
+                                                    location.href = "<?php echo $baseurl ?>?dashboard"
+                                                }, 1000)
+                                            </script>
                                             	<?php
                                         	} else {
                                         	    ?>
@@ -702,7 +718,170 @@
                                     if(isset($_POST["updateprofile"])){
                                         ?>
                                         <div class="dbp dbp0">
+                                        <?php
+                                        $name = mysqli_real_escape_string($connection, $_POST["name"]);
+                                        $phone = mysqli_real_escape_string($connection, $_POST["phone"]);
+                                        $address = mysqli_real_escape_string($connection, $_POST["address"]);
+                                        
+                                        if($name != "" && $phone != "" && $address != ""){
+                                            
+                                            mysqli_query($connection, "UPDATE $tableusers SET name='$name', phone='$phone', address='$address' WHERE userid = '$userid'");
+                                            
+                                            ?>
+
                                             <p>Your profile has been updated.</p>
+                                            <script>
+                                                setTimeout(function(){
+                                                    location.href = "<?php echo $baseurl ?>?dashboard"
+                                                }, 1000)
+                                            </script>
+
+                                            <?php
+                                        }else{
+                                            ?>
+                                            <p>Incomplete information!</p>
+                                            <?php
+                                        }
+                                        ?>
+                                        </div>
+                                        <?php
+                                    }
+                                    
+                                    if(isset($_GET["edit"])){
+                                        ?>
+                                        <div class="dbp dbp0">
+                                        <?php
+                                        
+                                        $productid = mysqli_real_escape_string($connection, $_GET["edit"]);
+                                        
+                                        $sql = "SELECT * FROM $tableproducts WHERE productid = '$productid'";
+                                        $row = mysqli_fetch_assoc(mysqli_query($connection, $sql));
+
+                                        ?>
+                                        <h3>Edit Product</h3>
+                                        
+                                        <?php 
+                                        if(isset($_POST["updateproduct"])){
+                                            $newtitle = mysqli_real_escape_string($connection, $_POST["title"]);
+                                            $newprice = mysqli_real_escape_string($connection, $_POST["price"]);
+                                            $newdescription = mysqli_real_escape_string($connection, $_POST["description"]);
+
+                                            if($newtitle != "" && $newprice != "" && $newdescription != ""){
+                                                
+                                                if($userid == mysqli_fetch_assoc(mysqli_query($connection, "SELECT * FROM $tableproducts WHERE productid='$productid' "))["userid"]){
+                                                    mysqli_query($connection, "UPDATE $tableproducts SET title = '$newtitle', price = '$newprice', description = '$newdescription' WHERE productid = '$productid' AND userid = '$userid'");
+                                                
+                                                    $maxsize = 2097152;
+                                                    if(($_FILES['productimage']['size'] >= $maxsize)){
+                                                        ?>
+                                                        <p>Uploaded image is too big. Try to upload different image.</p>
+                                                        <?php
+                                                    }else if($_FILES["productimage"]["size"] == 0){
+                                                        /*
+                                                        ?>
+                                                        <p>Uploaded image is file is invalid. Try to upload different image.</p>
+                                                        <?php
+                                                        */
+                                                    }else{
+                                                    	if($_FILES['productimage']['error'] > 0) { 
+                                                    	    ?>
+                                                    	    <p>Error during uploading new picture. Try again later.</p>
+                                                    	    <?php
+                                                    	}
+                                                    	$extsAllowed = array( 'jpg', 'jpeg', 'png' );
+                                                    	$uploadedfile = $_FILES["productimage"]["name"];
+                                                    	$extension = pathinfo($uploadedfile, PATHINFO_EXTENSION);
+                                                    	if (in_array($extension, $extsAllowed) ) { 
+                                                    	    $newppic = $productid;
+                                                        	$name = "upload/" . $newppic .".". $extension;
+                                                        	$result = move_uploaded_file($_FILES['productimage']['tmp_name'], $name);
+                                                        	createThumbnail($name, "upload/" . $newppic ."-thumb." . $extension, 256);
+                                                        	
+                                                        	?>
+                                                        	<p>Great! New photo has been added.</p>
+                                                        	<?php
+                                                    	}
+                                                    }
+                                                    
+                                                    ?>
+                                                    <p>Product has been successfully updated.</p>
+                                                    <script>
+                                                        setTimeout(function(){
+                                                            location.href = "<?php echo $baseurl ?>?dashboard"
+                                                        }, 1000)
+                                                    </script>
+                                                    <?php
+                                                }else{
+                                                    ?>
+                                                    <p>You are not authorized!</p>
+                                                    <?php
+                                                }
+                                                
+                                                
+                                            }else{
+                                                ?>
+                                                <p>Incomplete information!</p>
+                                                <?php
+                                            }
+                                        }else{
+                                            ?>
+                                            
+                                            <form method="post" action="<?php echo $baseurl ?>?dashboard&edit=<?php echo $productid ?>" enctype="multipart/form-data">
+                                                <label>Title</label>
+                                                <input name="title" placeholder="Title" value="<?php echo $row["title"] ?>">
+                                                <label>Price</label>
+                                                <input name="price" type="number" placeholder="Price" value="<?php echo $row["price"] ?>">
+                                                <label>Description</label>
+                                                <textarea name="description" placeholder="Description"><?php echo $row["description"] ?></textarea>
+                                                <p>Current product photo (Click if you want to replace it):</p>
+                                                <img src="upload/<?php echo $productid ?>.<?php echo $row["ext"] ?>" width="100%" style="cursor: pointer; border-radius: 10px;" onclick="$('#productimageupdate').click()">
+                                                <input type="file" name="productimage" accept="image/*" id="productimageupdate" style="display: none;">
+                                                <input  name="updateproduct" type="submit" value="Update" class="submitbutton">
+                                            </form>
+                                            
+                                            <p><i class="fa fa-link"></i> Click <a class="textlink" href="<?php echo $baseurl ?>?product=<?php echo $productid ?>">here</a> to view this product.</p>
+                                            <p style="color: red"><i class="fa fa-trash"></i> Or click <a class="textlink" href="<?php echo $baseurl ?>?dashboard&delete=<?php echo $productid ?>">here</a> to delete it.</p>
+                                            <?php
+                                            
+                                        }
+                                        ?>
+                                        </div>
+                                        <?php
+                                    }
+                                    
+                                    if(isset($_GET["delete"])){
+                                        ?>
+                                        <div class="dbp dbp0">
+                                        <?php
+                                        $productid = mysqli_real_escape_string($connection, $_GET["delete"]);
+                                        
+                                        $ext = mysqli_fetch_assoc(mysqli_query($connection, "SELECT * FROM $tableproducts WHERE productid='$productid' "))["ext"];
+                                        
+                                        if($userid == mysqli_fetch_assoc(mysqli_query($connection, "SELECT * FROM $tableproducts WHERE productid='$productid' "))["userid"]){
+
+                                            if(file_exists("upload/" . $productid . "." . $ext))
+                                                unlink("upload/" . $productid . "." . $ext);
+                                            if(file_exists("upload/" . $productid . "-thumb" . "." . $ext))
+                                                unlink("upload/" . $productid . "-thumb" . "." . $ext);
+                                                
+                                            mysqli_query($connection, "DELETE FROM $tableproducts WHERE productid = '$productid' AND userid = '$userid'");
+                                            
+                                            ?>
+                                            <p>Product has been successfully deleted.</p>
+                                            <script>
+                                                setTimeout(function(){
+                                                    location.href = "<?php echo $baseurl ?>?dashboard"
+                                                }, 1000)
+                                            </script>
+                                            <?php
+                                            
+                                        }else{
+                                            ?>
+                                            <p>You are not authorized!</p>
+                                            <?php
+                                        }
+                                        
+                                        ?>
                                         </div>
                                         <?php
                                     }
@@ -724,7 +903,7 @@
     
                                 
                                 <?php
-                                if(isset($_POST["addnew"]) || isset($_POST["updateprofile"])){
+                                if(isset($_POST["addnew"]) || isset($_POST["updateprofile"]) || isset($_GET["edit"]) || isset($_GET["delete"])){
                                     ?>
                                     dbpage(0)
                                     <?php
@@ -810,7 +989,11 @@
                                                     <div class="pricetag"><i class="fa fa-tag"></i> $<?php echo $productrow["price"] ?></div>
                                                 </div>
                                             </div>
-                                            <h2 style="margin: 0px;"><i class="fa fa-cutlery"></i> <?php echo $productrow["title"] ?></h2>
+                                            
+                                            
+                                            <h3 style="margin: 0px;"><?php echo $productrow["title"] ?></h3>
+                                            
+                                            
                                             <h5 style="margin: 0px;"><i class="fa fa-user"></i> <?php echo $row["name"] ?></h5>
                                             <div class="shorttext">
                                                 <?php echo $productrow["description"] ?>
@@ -881,34 +1064,37 @@
                             if(isset($_POST["search"])){
                                 
                                 $query = mysqli_real_escape_string($connection, $_POST["search"]);
-                                $sql = "SELECT * FROM $tableproducts WHERE title LIKE '%$query%' OR description LIKE '%$query%'";
+                                
+                                $sql = "SELECT * FROM $tableproducts WHERE title LIKE '%$query%' OR description LIKE '%$query%' ORDER BY id DESC";
                                 $result = mysqli_query($connection, $sql);
                                 if($query != ""){
                                     if(mysqli_num_rows($result) > 0){
                                         ?>
                                         <h3 align="center" style="margin: 30px;">Search results:</h3>
                                         <?php
-                                        $row = mysqli_fetch_assoc($result);
-                                        $uid = $row["userid"];
-                                        
-                                        $sellername = mysqli_fetch_assoc(mysqli_query($connection, "SELECT * FROM $tableusers WHERE userid = '$uid'"))["name"];
-                                        
-                                        ?>
-                                        <a href="<?php echo $baseurl ?>?product=<?php echo $row["productid"] ?>">
-                                            <div class="productthumbnail">
-                                                <div class="thumbnailimage" style="margin-bottom: 10px; background: url(upload/<?php echo $row["productid"] ?>-thumb.<?php echo $row["ext"] ?>) no-repeat center center; background-size: cover; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover;">
-                                                    <div style="display: inline-block;">
-                                                        <div class="pricetag"><i class="fa fa-tag"></i> $<?php echo $row["price"] ?></div>
+                                        while($row = mysqli_fetch_assoc($result)){
+                                            $uid = $row["userid"];
+                                            $sellername = mysqli_fetch_assoc(mysqli_query($connection, "SELECT * FROM $tableusers WHERE userid = '$uid'"))["name"];
+                                            
+                                            ?>
+                                            <a href="<?php echo $baseurl ?>?product=<?php echo $row["productid"] ?>">
+                                                <div class="productthumbnail">
+                                                    <div class="thumbnailimage" style="margin-bottom: 10px; background: url(upload/<?php echo $row["productid"] ?>-thumb.<?php echo $row["ext"] ?>) no-repeat center center; background-size: cover; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover;">
+                                                        <div style="display: inline-block;">
+                                                            <div class="pricetag"><i class="fa fa-tag"></i> $<?php echo $row["price"] ?></div>
+                                                        </div>
+                                                    </div>
+    
+                                                    <h3 style="margin: 0px;"><?php echo $row["title"] ?></h3>
+    
+                                                    <h5 style="margin: 0px;"><i class="fa fa-user"></i> <?php echo $sellername ?></h5>
+                                                    <div class="shorttext">
+                                                        <?php echo $row["description"] ?>
                                                     </div>
                                                 </div>
-                                                <h2 style="margin: 0px;"><i class="fa fa-cutlery"></i> <?php echo $row["title"] ?></h2>
-                                                <h5 style="margin: 0px;"><i class="fa fa-user"></i> <?php echo $sellername ?></h5>
-                                                <div class="shorttext">
-                                                    <?php echo $row["description"] ?>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <?php
+                                            </a>
+                                            <?php
+                                        }
                                     }else{
                                         ?>
                                         <h3 align="center" style="margin: 30px;">Search results:</h3>
@@ -950,7 +1136,7 @@
                                             <div class="pricetag"><i class="fa fa-tag"></i> $<?php echo $row["price"] ?></div>
                                         </div>
                                     </div>
-                                    <h2 style="margin: 0px;"><i class="fa fa-cutlery"></i> <?php echo $row["title"] ?></h2>
+                                    <h3 style="margin: 0px; display: block;"><?php echo $row["title"] ?></h3>
                                     <h5 style="margin: 0px;"><i class="fa fa-user"></i> <?php echo $sellername ?></h5>
                                     <div class="shorttext">
                                         <?php echo $row["description"] ?>
