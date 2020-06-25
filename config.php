@@ -1,25 +1,25 @@
 <?php
 
 //general configuration
-$websitetitle = "Hubby | Home Cooks for everyone";
-$baseurl = "https://alkalomeclat.com/hubby/index.php";
+$websitetitle = "Delicifood | Free PHP Ecommerce Platform";
+$baseurl = "http://localhost/ThirteeNov/delicifood/index.php";
 
 //appearance & color settings
-$primarycolor = "#9503f1";
-$primarycolordarker = "#7e00ce";
+$primarycolor = "#13908c";
+$primarycolordarker = "#0f7b78";
 $bodybg = "#cbcbcb";
 
 //database connection
 $host = "localhost";
-$dbuser = "alkalome_habibie";
-$dbpassword = "+mY-Eef^Ox_0";
-$databasename = "alkalome_testdb";
+$dbuser = "xxx";
+$dbpassword = "xxx";
+$databasename = "xxx";
 $connection = mysqli_connect($host, $dbuser, $dbpassword, $databasename);
 $connection->set_charset("utf8");
 
 //database tables
-$tableusers = "hubbyusers";
-$tableproducts = "hubbyproducts";
+$tableusers = "xxx";
+$tableproducts = "xxx";
 
 //creating database table for user registration
 mysqli_query($connection, "CREATE TABLE IF NOT EXISTS $tableusers (
