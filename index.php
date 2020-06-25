@@ -949,6 +949,12 @@
                                         <h4><span style="font-size: 12px;">Added by</span> <a class="textlink" href="<?php echo $baseurl ?>?user=<?php echo $sellerid ?>"><i class="fa fa-user"></i> <?php echo $sellerinfo["name"] ?></a> <span style="font-size: 12px;">from</span> <i class="fa fa-map-marker"></i> <?php echo $sellerinfo["address"] ?></h4>
                                         <p><?php echo $row["description"] ?></p>
                                         <a href="https://wa.me/<?php echo $sellerinfo["phone"] ?>?text=Hi, I came across this link <?php echo $baseurl . "?product=" . "$productid" ?> and I want to ask some questions..."><div class="chatbutton"><i class="fa fa-whatsapp"></i> Chat Now</div></a>
+                                        
+                                        <br><br><br>
+                                        <div id="fb-root"></div>
+                                        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&amp;version=v5.0&amp;appId=569420283509636&amp;autoLogAppEvents=1"></script>
+                                         
+                                        <div class="fb-comments" data-href="<?php echo $baseurl ?>?product=<?php echo $productid ?>" data-width="" data-numposts="5"></div>
                                     </div>
                                 </div>
                             </div>
