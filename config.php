@@ -44,5 +44,7 @@ description VARCHAR(500) NOT NULL,
 ext VARCHAR(10) NOT NULL
 )");
 
+if(!file_exists("upload"))
+	mkdir("upload");
 
 ?>
