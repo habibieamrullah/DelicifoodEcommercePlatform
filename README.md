@@ -14,3 +14,4 @@ Features:
 - Integrated with Facebook comment plugin
 - WhatsApp chat call to action button integration
 
+Watch the step by step tutorial in this video: https://youtu.be/jDZNPPXHxTU
