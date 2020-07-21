@@ -15,3 +15,5 @@ Features:
 - WhatsApp chat call to action button integration
 
 Watch the step by step tutorial in this video: https://youtu.be/jDZNPPXHxTU
+
+Newer version of this is available here: https://github.com/habibieamrullah/DelicifoodEcommercePlatformV2
